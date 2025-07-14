@@ -16,23 +16,25 @@ A full-stack secure authentication and CRUD system using:
 ---
 
 ## 📁 Project Structure
+```text
 secure-auth-system-nodejs/
 │
 ├── backend/
-│ ├── .env # Environment variables (DB + secrets)
-│ ├── server.js # Express HTTPS server
-│ ├── db.js # MySQL DB connection
-│ ├── auth.js # JWT token generators
-│ └── package.json # Dependencies (express, mysql2, bcrypt, etc.)
+│   ├── .env               # Environment variables (DB + secrets)
+│   ├── server.js          # Express HTTPS server
+│   ├── db.js              # MySQL DB connection
+│   ├── auth.js            # JWT token generators
+│   └── package.json       # Dependencies (express, mysql2, bcrypt, etc.)
 │
 ├── certs/
-│ ├── cert.pem # HTTPS cert (mkcert)
-│ └── key.pem # HTTPS private key (mkcert)
+│   ├── cert.pem           # HTTPS cert (mkcert)
+│   └── key.pem            # HTTPS private key (mkcert)
 │
 ├── frontend/
-│ ├── index.html # UI: login, dashboard, product CRUD
-│ ├── script.js # Logic: token flow, UI updates
-│ └── secure_auth.sql # SQL: Create DB, tables, sample data
+│   ├── index.html         # UI: login, dashboard, product CRUD
+│   ├── script.js          # Logic: token flow, UI updates
+│   └── secure_auth.sql    # SQL: Create DB, tables, sample data
+```
 
 ---
 

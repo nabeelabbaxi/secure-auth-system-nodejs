@@ -83,6 +83,15 @@ This creates:
 
 ---
 
+## 🔑 Default Credentials
+
+- **Username:** `admin`
+- **Password:** `123456`
+
+Use these credentials to log in after initial setup. Change them in the database for production use.
+
+---
+
 ## 🔐 4. Generate HTTPS Certificates
 
 🧰 Install mkcert

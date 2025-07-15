@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+.env
+npm-debug.log
+
+# macOS
+.DS_Store
+
+# certs
+certs/key.pem
+certs/cert.pem
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
